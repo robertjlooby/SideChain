@@ -1,0 +1,11 @@
+{
+  "framework": "jasmine",
+  "src_files": [
+    "bower_components/jquery/jquery.js",
+    "bower_components/underscore/underscore.js",
+    "bower_components/backbone/backbone.js",
+    "src/namespace.js",
+    "src/side_chain/view.js",
+    "spec/**/*.js"
+  ]
+}

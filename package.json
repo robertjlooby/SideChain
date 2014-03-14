@@ -1,0 +1,7 @@
+{
+  "name": "SideChain",
+  "version": "0.0.0",
+  "devDependencies": {
+    "testem": "~0.6.2"
+  }
+}
