@@ -1,12 +1,12 @@
 {
   "name": "SideChain",
   "version": "0.0.0",
+  "main" : "SideChain.min.js",
   "homepage": "https://github.com/robertjlooby/SideChain",
   "authors": [
     "Rob Looby <robertjlooby@gmail.com>"
   ],
   "license": "MIT",
-  "private": true,
   "dependencies": {
     "jquery"   : "~2.0.0",
     "backbone" : "~1.1.2"
