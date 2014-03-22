@@ -14,11 +14,10 @@ namespace('SideChain');
     bindUISelectors: function() {
       this.$ui = {};
       _.each(this.ui, (function(_this) {
-          return function(selector, name) {
-            _this.$ui[name] = function() {return _this.$(selector)}
-          };
-        })(this)
-      );
+        return function(selector, name) {
+          _this.$ui[name] = function() {return _this.$(selector)}
+        };
+      })(this));
     },
 
     bindUIEvents: function() {
@@ -26,11 +25,11 @@ namespace('SideChain');
       this.events = {};
       _.each(tempEvents, (function(_this) {
         return function(handler, eventTrigger) {
-          var interpolatedEventTrigger = _.template(eventTrigger, _this.ui, {interpolate: /\{\{(.+?)\}\}/g})
+          var mustacheMatcher = /\{\{(.+?)\}\}/g;
+          var interpolatedEventTrigger = _.template(eventTrigger, _this.ui, {interpolate: mustacheMatcher})
           _this.events[interpolatedEventTrigger] = handler;
         };
-      })(this)
-    );
+      })(this));
     }
   });
 })(window.Backbone, window.jquery);
