@@ -67,9 +67,112 @@ describe('SideChain.View', function() {
     var view = new myView();
 
     view.render();
-    view.$ui.div2().click()
+    view.$ui.div2().click();
 
-    expect(callback1).toHaveBeenCalled()
+    expect(callback1).toHaveBeenCalled();
+  });
+
+  describe('selectors', function() {
+    it('for a single id', function() {
+      var myView = SideChain.View.extend({
+        ui: {div1: {id : 'div1'}}
+      });
+      var view = new myView();
+
+      expect(view.$ui.div1().selector).toEqual('#div1');
+    });
+
+    it('for multiple ids', function() {
+      var myView = SideChain.View.extend({
+        ui: {div1: {id : ['div1', 'error', 'name']}}
+      });
+      var view = new myView();
+
+      expect(view.$ui.div1().selector).toEqual('#div1#error#name');
+    });
+
+    it('for a single class', function() {
+      var myView = SideChain.View.extend({
+        ui: {div1: {class : 'div1'}}
+      });
+      var view = new myView();
+
+      expect(view.$ui.div1().selector).toEqual('.div1');
+    });
+
+    it('for multiple classes', function() {
+      var myView = SideChain.View.extend({
+        ui: {div1: {class : ['div1', 'error', 'name']}}
+      });
+      var view = new myView();
+
+      expect(view.$ui.div1().selector).toEqual('.div1.error.name');
+    });
+
+    it('for nested classes', function() {
+      var myView = SideChain.View.extend({
+        ui: {div1: [{class : 'div1'}, {class : 'inner'}]}
+      });
+      var view = new myView();
+
+      expect(view.$ui.div1().selector).toEqual('.div1 .inner');
+    });
+
+    it('for an id and a class', function() {
+      var myView = SideChain.View.extend({
+        ui: {div1: {id: 'the-div', class : 'div1'}}
+      });
+      var view = new myView();
+
+      expect(view.$ui.div1().selector).toEqual('#the-div.div1');
+    });
+
+    xit('for an element', function() {
+      var myView = SideChain.View.extend({
+        ui: {div1: {element: 'input'}}
+      });
+      var view = new myView();
+
+      expect(view.$ui.div1().selector).toEqual('input');
+    });
+
+    it('for an element', function() {
+      var myView = SideChain.View.extend({
+        ui: {div1: {element: 'input'}}
+      });
+      var view = new myView();
+
+      expect(view.$ui.div1().selector).toEqual('input');
+    });
+
+    it('for an attribute selector', function() {
+      var myView = SideChain.View.extend({
+        ui: {div1: {'data-id': 'first name'}}
+      });
+      var view = new myView();
+
+      expect(view.$ui.div1().selector).toEqual('[data-id="first name"]');
+    });
+
+    it('for an attribute selector and element', function() {
+      var myView = SideChain.View.extend({
+        ui: {div1: {element: 'option', value: 'Chicago'}}
+      });
+      var view = new myView();
+
+      expect(view.$ui.div1().selector).toEqual('option[value="Chicago"]');
+    });
+
+    it('for a complex example', function() {
+      var myView = SideChain.View.extend({
+        ui: {div1: [{element: 'form', 'class': ['error', 'primary']},
+                    {element: 'input', 'data-id': 'card', name: 'first name'},
+                    {id: ['blah', 'special']}]}
+      });
+      var view = new myView();
+
+      expect(view.$ui.div1().selector).toEqual('form.error.primary input[data-id="card"][name="first name"] #blah#special');
+    });
   });
 });
 

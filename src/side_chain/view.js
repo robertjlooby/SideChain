@@ -6,16 +6,64 @@ namespace('SideChain');
   SideChain.View = Backbone.View.extend({
     constructor: function(options) {
       options || (options = {});
+      _.bindAll(this, 'elSelectorDataToElSelector');
+      this.constructUISelectors();
       this.bindUISelectors();
       this.bindUIEvents();
       Backbone.View.apply(this, arguments);
     },
+    partialElSelectorDataToPartialElSelector: function(type, value) {
+      var separators = {
+        'class'  : '.',
+        'element': '',
+        'id'     : '#',
+      };
+      if (_.isUndefined(value)) {
+        return '';
+      } else if (_.isString(separators[type])) {
+        var separator = separators[type];
+        return separator + (_.isArray(value) ? value : [value]).join(separator);
+      } else {
+        return '[' + type + '="' + value + '"]';
+      }
+    },
+
+    elSelectorDataToElSelector: function(elSelectorData) {
+      var selector = "";
+      var selectorTypes = ['element', 'id', 'class'].concat(_.keys(_.omit(elSelectorData, 'class', 'id', 'element')));
+      _.each(selectorTypes, (function(_this) {
+        return function(type) {
+          selector += _this.partialElSelectorDataToPartialElSelector(type, elSelectorData[type]);
+        };
+      })(this));
+      return selector;
+    },
+
+    selectorDataToSelector: function(selectorData) {
+      if (_.isString(selectorData)) {
+        return selectorData;
+      }
+      return _.map(
+          _.isArray(selectorData) ? selectorData : [selectorData],
+          this.elSelectorDataToElSelector
+          ).join(' ');
+    },
+
+    constructUISelectors: function() {
+      this.uiSelectors = {};
+      _.each(this.ui, (function(_this) {
+        return function(selectorData, name) {
+          var selector = _this.selectorDataToSelector(selectorData);
+          _this.uiSelectors[name] = selector;
+        };
+      })(this));
+    },
 
     bindUISelectors: function() {
       this.$ui = {};
-      _.each(this.ui, (function(_this) {
+      _.each(this.uiSelectors, (function(_this) {
         return function(selector, name) {
-          _this.$ui[name] = function() {return _this.$(selector)}
+          _this.$ui[name] = function() {return _this.$(selector)};
         };
       })(this));
     },
@@ -26,7 +74,7 @@ namespace('SideChain');
       _.each(tempEvents, (function(_this) {
         return function(handler, eventTrigger) {
           var mustacheMatcher = /\{\{(.+?)\}\}/g;
-          var interpolatedEventTrigger = _.template(eventTrigger, _this.ui, {interpolate: mustacheMatcher})
+          var interpolatedEventTrigger = _.template(eventTrigger, _this.uiSelectors, {interpolate: mustacheMatcher});
           _this.events[interpolatedEventTrigger] = handler;
         };
       })(this));
