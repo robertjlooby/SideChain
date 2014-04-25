@@ -23,6 +23,9 @@ namespace('SideChain');
       } else if (_.isString(separators[type])) {
         var separator = separators[type];
         return separator + (_.isArray(value) ? value : [value]).join(separator);
+
+      } else if (_.contains(['eq', 'gt', 'lang', 'lt', 'nth-child', 'nth-last-child', 'nth-last-of-type', 'nth-of-type'], type)) {
+        return ':' + type + '(' + value + ')';
       } else {
         return '[' + type + '="' + value + '"]';
       }
@@ -30,7 +33,11 @@ namespace('SideChain');
 
     elSelectorDataToElSelector: function(elSelectorData) {
       var selector = "";
-      var selectorTypes = ['element', 'id', 'class'].concat(_.keys(_.omit(elSelectorData, 'class', 'id', 'element')));
+      var prefixSelectorTypes = ['element', 'id', 'class'];
+      var postfixSelectorTypes = ['eq', 'gt', 'lang', 'lt', 'nth-child', 'nth-last-child', 'nth-last-of-type', 'nth-of-type'];
+      var fixedTypes = prefixSelectorTypes.concat(postfixSelectorTypes);
+      var otherTypes = _.omit(elSelectorData, fixedTypes);
+      var selectorTypes = prefixSelectorTypes.concat(_.keys(otherTypes)).concat(postfixSelectorTypes);
       _.each(selectorTypes, (function(_this) {
         return function(type) {
           selector += _this.partialElSelectorDataToPartialElSelector(type, elSelectorData[type]);

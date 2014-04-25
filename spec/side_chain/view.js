@@ -145,6 +145,78 @@ describe('SideChain.View', function() {
       expect(view.$ui.div1().selector).toEqual('input');
     });
 
+    it('for an index equals selector', function() {
+      var myView = SideChain.View.extend({
+        ui: {div1: {element: 'input', eq: 5, 'data-id': 'first name'}}
+      });
+      var view = new myView();
+
+      expect(view.$ui.div1().selector).toEqual('input[data-id="first name"]:eq(5)');
+    });
+
+    it('for an index greater than selector', function() {
+      var myView = SideChain.View.extend({
+        ui: {div1: {element: 'input', gt: 6, 'data-id': 'first name'}}
+      });
+      var view = new myView();
+
+      expect(view.$ui.div1().selector).toEqual('input[data-id="first name"]:gt(6)');
+    });
+
+    it('for an index less than selector', function() {
+      var myView = SideChain.View.extend({
+        ui: {div1: {element: 'input', lt: 2, 'data-id': 'first name'}}
+      });
+      var view = new myView();
+
+      expect(view.$ui.div1().selector).toEqual('input[data-id="first name"]:lt(2)');
+    });
+
+    it('for a lang selector', function() {
+      var myView = SideChain.View.extend({
+        ui: {div1: {element: 'input', lang: 'en', 'data-id': 'first name'}}
+      });
+      var view = new myView();
+
+      expect(view.$ui.div1().selector).toEqual('input[data-id="first name"]:lang(en)');
+    });
+
+    it('for nth-child selector', function() {
+      var myView = SideChain.View.extend({
+        ui: {div1: {element: 'input', 'nth-child': 7, 'data-id': 'first name'}}
+      });
+      var view = new myView();
+
+      expect(view.$ui.div1().selector).toEqual('input[data-id="first name"]:nth-child(7)');
+    });
+
+    it('for nth-last-child selector', function() {
+      var myView = SideChain.View.extend({
+        ui: {div1: {element: 'input', 'nth-last-child': 7, 'data-id': 'first name'}}
+      });
+      var view = new myView();
+
+      expect(view.$ui.div1().selector).toEqual('input[data-id="first name"]:nth-last-child(7)');
+    });
+
+    it('for nth-last-of-type selector', function() {
+      var myView = SideChain.View.extend({
+        ui: {div1: {element: 'input', 'nth-last-of-type': '3n + 1', 'data-id': 'first name'}}
+      });
+      var view = new myView();
+
+      expect(view.$ui.div1().selector).toEqual('input[data-id="first name"]:nth-last-of-type(3n + 1)');
+    });
+
+    it('for nth-of-type selector', function() {
+      var myView = SideChain.View.extend({
+        ui: {div1: {element: 'input', 'nth-of-type': 'even', 'data-id': 'first name'}}
+      });
+      var view = new myView();
+
+      expect(view.$ui.div1().selector).toEqual('input[data-id="first name"]:nth-of-type(even)');
+    });
+
     it('for an attribute selector', function() {
       var myView = SideChain.View.extend({
         ui: {div1: {'data-id': 'first name'}}

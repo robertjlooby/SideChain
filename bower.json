@@ -1,6 +1,6 @@
 {
   "name": "SideChain",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "main" : "SideChain.min.js",
   "homepage": "https://github.com/robertjlooby/SideChain",
   "authors": [
