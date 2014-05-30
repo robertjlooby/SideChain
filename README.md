@@ -52,3 +52,70 @@ ui: {
 ```
 
 The above selector would compile to `'#the-id.error.blue.small input[name="first_name"]'`.
+
+Selectors
+========
+| Selector                  | JQuery                        | SideChain                        |
+|---------------------------|-------------------------------|----------------------------------|
+| All                       | *                             |                                  |
+| Animated                  | :animated                     | {'filter': 'animated'}           |
+| Attribute Contains Prefix | [name|=value]                 |                                  |
+| Attribute Contains        | [name*=value]                 |                                  |
+| Attribute Contains Word   | [name~=value]                 |                                  |
+| Attribute Ends With       | [name$=value]                 |                                  |
+| Attribute Equals          | [name=value]                  | {'name': 'value'}                |
+| Attribute Not Equal       | [name!=value]                 |                                  |
+| Attribute Starts With     | [name^=value]                 |                                  |
+| Button                    | :button                       | {'filter': 'button'}             |
+| Checkbox                  | :checkbox                     | {'filter': 'checkbox'}           |
+| Checked                   | :checked                      | {'filter': 'checked'}            |
+| Child                     | parent > child                | [{parent} '>' {child}]           |
+| Class                     | .name                         | {'class': 'name'}                |
+| Contains                  | :contains(text)               | {'contains': text}               |
+| Descendant                | ancestor descendant           | [{ancestor}, {descendant}]       |
+| Disabled                  | :disabled                     | {'filter': 'disabled'}           |
+| Element                   | name                          | {'element': 'name'}              |
+| Empty                     | :empty                        | {'filter': 'empty'}              |
+| Enabled                   | :enabled                      | {'filter': 'enabled'}            |
+| Equal                     | :eq(index)                    | {'eq': index}                    |
+| Even                      | :even                         | {'filter': 'even'}               |
+| File                      | :file                         | {'filter': 'file'}               |
+| First Child               | :first-child                  | {'filter': 'first-child'}        |
+| First of Type             | :first-of-type                | {'filter': 'first-of-type'}      |
+| First                     | :first                        | {'filter': 'first'}              |
+| Focus                     | :focus                        | {'filter': 'focus'}              |
+| Greater Than              | :gt(index)                    | {'gt': index}                    |
+| Has Attribute             | [name]                        |                                  |
+| Has                       | :has(selector)                | {'has': [selector]}              |
+| Header                    | :header                       | {'filter': 'header'}             |
+| Hidden                    | :hidden                       | {'filter': 'hidden'}             |
+| ID                        | #value                        | {'id': value}                    |
+| Image                     | :image                        | {'filter': 'image'}              |
+| Input                     | :input                        | {'filter': 'input'}              |
+| Lang                      | :lang(value)                  | {'lang': value}                  |
+| Last Child                | :last-child                   | {'filter': 'last-child'}         |
+| Last of Type              | :last-of-type                 | {'filter': 'last-of-type'}       |
+| Last                      | :last                         | {'filter': 'last'}               |
+| Less Than                 | :lt(index)                    | {'lt': index}                    |
+| Multiple Attribute        | [name=value][name2=value2]    | {'name': value, 'name2': value2} |
+| Multiple                  | selector1,selector2,selectorN | [{selector1}, ',', {selector2}]  |
+| Next Adjacent             | prev + next                   | [{prev} '+' {next}]              |
+| Next Siblings             | prev ~ siblings               | [{prev} '~' {siblings}]          |
+| Not                       | :not(selector)                | {'not': [selector]}              |
+| Nth Child                 | :nth-child(index)             | {'nth-child': index}             |
+| Nth Last Child            | :nth-last-child(index)        | {'nth-last-child': index}        |
+| Nth Last of Type          | :nth-last-of-type(index)      | {'nth-last-of-type': index}      |
+| Nth of Type               | :nth-of-type(index)           | {'nth-of-type': index}           |
+| Odd                       | :odd                          | {'filter': 'odd'}                |
+| Only Child                | :only-child                   | {'filter': 'only-child'}         |
+| Only of Type              | :only-of-type                 | {'filter': 'only-of-type'}       |
+| Parent                    | :parent                       | {'filter': 'parent'}             |
+| Password                  | :password                     | {'filter': 'password'}           |
+| Radio                     | :radio                        | {'filter': 'radio'}              |
+| Reset                     | :reset                        | {'filter': 'reset'}              |
+| Root                      | :root                         | {'filter': 'root'}               |
+| Selected                  | :selected                     | {'filter': 'selected'}           |
+| Submit                    | :submit                       | {'filter': 'submit'}             |
+| Target                    | :target                       | {'filter': 'target'}             |
+| Text                      | :text                         | {'filter': 'text'}               |
+| Visible                   | :visible                      | {'filter': 'visible'}            |

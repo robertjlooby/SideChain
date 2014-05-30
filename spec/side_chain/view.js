@@ -118,6 +118,42 @@ describe('SideChain.View', function() {
       expect(view.$ui.div1().selector).toEqual('.div1 .inner');
     });
 
+    it('for child selector', function() {
+      var myView = SideChain.View.extend({
+        ui: {div1: [{class : 'first'}, '>', {class : 'second'}, '>', {class : 'third'}]}
+      });
+      var view = new myView();
+
+      expect(view.$ui.div1().selector).toEqual('.first > .second > .third');
+    });
+
+    it('for next adjacent selector', function() {
+      var myView = SideChain.View.extend({
+        ui: {div1: [{class : 'first'}, '+', {class : 'second'}, '+', {class : 'third'}]}
+      });
+      var view = new myView();
+
+      expect(view.$ui.div1().selector).toEqual('.first + .second + .third');
+    });
+
+    it('for next sibling selector', function() {
+      var myView = SideChain.View.extend({
+        ui: {div1: [{class : 'first'}, '~', {class : 'second'}, '~', {class : 'third'}]}
+      });
+      var view = new myView();
+
+      expect(view.$ui.div1().selector).toEqual('.first ~ .second ~ .third');
+    });
+
+    it('for multiple selectors', function() {
+      var myView = SideChain.View.extend({
+        ui: {div1: [{class : 'first'}, ',', {class : 'second'}, ',', {class : 'third'}]}
+      });
+      var view = new myView();
+
+      expect(view.$ui.div1().selector).toEqual('.first , .second , .third');
+    });
+
     it('for an id and a class', function() {
       var myView = SideChain.View.extend({
         ui: {div1: {id: 'the-div', class : 'div1'}}
@@ -127,7 +163,7 @@ describe('SideChain.View', function() {
       expect(view.$ui.div1().selector).toEqual('#the-div.div1');
     });
 
-    xit('for an element', function() {
+    it('for an element', function() {
       var myView = SideChain.View.extend({
         ui: {div1: {element: 'input'}}
       });
@@ -215,6 +251,64 @@ describe('SideChain.View', function() {
       var view = new myView();
 
       expect(view.$ui.div1().selector).toEqual('input[data-id="first name"]:nth-of-type(even)');
+    });
+
+    it('for contains selector', function() {
+      var myView = SideChain.View.extend({
+        ui: {div1: {element: 'input', 'contains': 'some text', 'data-id': 'first name'}}
+      });
+      var view = new myView();
+
+      expect(view.$ui.div1().selector).toEqual('input[data-id="first name"]:contains(some text)');
+    });
+
+    it('for filter :animated selector', function() {
+      var myView = SideChain.View.extend({
+        ui: {div1: {element: 'input', 'filter': 'animated', 'data-id': 'first name'}}
+      });
+      var view = new myView();
+
+      expect(view.$ui.div1().selector).toEqual('input[data-id="first name"]:animated');
+    });
+
+    it('for filter :button selector', function() {
+      var myView = SideChain.View.extend({
+        ui: {div1: {element: 'input', 'filter': 'button', 'data-id': 'first name'}}
+      });
+      var view = new myView();
+
+      expect(view.$ui.div1().selector).toEqual('input[data-id="first name"]:button');
+    });
+
+    it('for filter :checkbox selector', function() {
+      var myView = SideChain.View.extend({
+        ui: {div1: {element: 'input', 'filter': 'checkbox', 'data-id': 'first name'}}
+      });
+      var view = new myView();
+
+      expect(view.$ui.div1().selector).toEqual('input[data-id="first name"]:checkbox');
+    });
+
+    it('for a has selector', function() {
+      var myView = SideChain.View.extend({
+        ui: {div1: {has: [{element: 'form', 'class': ['error', 'primary']},
+                          {element: 'input', 'data-id': 'card', name: 'first name'},
+                          {id: ['blah', 'special']}]}}
+      });
+      var view = new myView();
+
+      expect(view.$ui.div1().selector).toEqual(':has(form.error.primary input[data-id="card"][name="first name"] #blah#special)');
+    });
+
+    it('for a not selector', function() {
+      var myView = SideChain.View.extend({
+        ui: {div1: {not: [{element: 'form', 'class': ['error', 'primary']},
+                          {element: 'input', 'data-id': 'card', name: 'first name'},
+                          {id: ['blah', 'special']}]}}
+      });
+      var view = new myView();
+
+      expect(view.$ui.div1().selector).toEqual(':not(form.error.primary input[data-id="card"][name="first name"] #blah#special)');
     });
 
     it('for an attribute selector', function() {
