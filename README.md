@@ -2,6 +2,7 @@ SideChain
 =========
 
 SideChain is a simple extension to Backbone.js that attempts to reduce the duplication of selectors and CSS classes in Backbone views.
+SideChain is dependent on jQuery, Underscore.js, and Backbone.js being loaded first.
 A SideChain view can be defined with a `ui` object.
 The selectors defined in the `ui` object are bound to functions in the view's `$ui` object of the same name that select from inside the view's `el`.
 They are also accessible in the `events` object for binding events with those selectors by using mustache (`{{ }}`) interpolation.
