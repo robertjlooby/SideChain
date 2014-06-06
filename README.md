@@ -57,15 +57,15 @@ Selectors
 ========
 | Selector                  | JQuery                        | SideChain                        |
 |---------------------------|-------------------------------|----------------------------------|
-| All                       | *                             |                                  |
+| All                       | *                             | {'element': '*'}                 |
 | Animated                  | :animated                     | {'filter': 'animated'}           |
-| Attribute Contains Prefix | [name|=value]                 |                                  |
-| Attribute Contains        | [name*=value]                 |                                  |
-| Attribute Contains Word   | [name~=value]                 |                                  |
-| Attribute Ends With       | [name$=value]                 |                                  |
+| Attribute Contains Prefix | [name|=value]                 | {'name*=': value}                |
+| Attribute Contains        | [name*=value]                 | {'name*=': value}                |
+| Attribute Contains Word   | [name~=value]                 | {'name*=': value}                |
+| Attribute Ends With       | [name$=value]                 | {'name*=': value}                |
 | Attribute Equals          | [name=value]                  | {'name': 'value'}                |
-| Attribute Not Equal       | [name!=value]                 |                                  |
-| Attribute Starts With     | [name^=value]                 |                                  |
+| Attribute Not Equal       | [name!=value]                 | {'name*=': value}                |
+| Attribute Starts With     | [name^=value]                 | {'name*=': value}                |
 | Button                    | :button                       | {'filter': 'button'}             |
 | Checkbox                  | :checkbox                     | {'filter': 'checkbox'}           |
 | Checked                   | :checked                      | {'filter': 'checked'}            |
@@ -85,7 +85,7 @@ Selectors
 | First                     | :first                        | {'filter': 'first'}              |
 | Focus                     | :focus                        | {'filter': 'focus'}              |
 | Greater Than              | :gt(index)                    | {'gt': index}                    |
-| Has Attribute             | [name]                        |                                  |
+| Has Attribute             | [name]                        | {'name': null}                   |
 | Has                       | :has(selector)                | {'has': [selector]}              |
 | Header                    | :header                       | {'filter': 'header'}             |
 | Hidden                    | :hidden                       | {'filter': 'hidden'}             |

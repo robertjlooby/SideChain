@@ -30,6 +30,10 @@ namespace('SideChain');
         return ':' + value;
       } else if (_.contains(['has', 'not'], type)) {
         return ':' + type + '(' + this.selectorDataToSelector(value) + ')';
+      } else if (type.slice(-1) == '=') {
+        return '[' + type + '"' + value + '"]';
+      } else if (_.isNull(value)) {
+        return '[' + type + ']';
       } else {
         return '[' + type + '="' + value + '"]';
       }

@@ -172,13 +172,13 @@ describe('SideChain.View', function() {
       expect(view.$ui.div1().selector).toEqual('input');
     });
 
-    it('for an element', function() {
+    it('for all elements', function() {
       var myView = SideChain.View.extend({
-        ui: {div1: {element: 'input'}}
+        ui: {div1: {element : '*', filter: 'checked'}}
       });
       var view = new myView();
 
-      expect(view.$ui.div1().selector).toEqual('input');
+      expect(view.$ui.div1().selector).toEqual('*:checked');
     });
 
     it('for an index equals selector', function() {
@@ -318,6 +318,69 @@ describe('SideChain.View', function() {
       var view = new myView();
 
       expect(view.$ui.div1().selector).toEqual('[data-id="first name"]');
+    });
+
+    it('for a has attribute selector', function() {
+      var myView = SideChain.View.extend({
+        ui: {div1: {'data-id': null}}
+      });
+      var view = new myView();
+
+      expect(view.$ui.div1().selector).toEqual('[data-id]');
+    });
+
+    it('for an attribute contains prefix selector', function() {
+      var myView = SideChain.View.extend({
+        ui: {div1: {element: 'option', 'value|=': 'Chicago'}}
+      });
+      var view = new myView();
+
+      expect(view.$ui.div1().selector).toEqual('option[value|="Chicago"]');
+    });
+
+    it('for an attribute contains selector', function() {
+      var myView = SideChain.View.extend({
+        ui: {div1: {element: 'option', 'value*=': 'Chicago'}}
+      });
+      var view = new myView();
+
+      expect(view.$ui.div1().selector).toEqual('option[value*="Chicago"]');
+    });
+
+    it('for an attribute contains word selector', function() {
+      var myView = SideChain.View.extend({
+        ui: {div1: {element: 'option', 'value~=': 'Chicago'}}
+      });
+      var view = new myView();
+
+      expect(view.$ui.div1().selector).toEqual('option[value~="Chicago"]');
+    });
+
+    it('for an attribute ends with selector', function() {
+      var myView = SideChain.View.extend({
+        ui: {div1: {element: 'option', 'value$=': 'Chicago'}}
+      });
+      var view = new myView();
+
+      expect(view.$ui.div1().selector).toEqual('option[value$="Chicago"]');
+    });
+
+    it('for an attribute not equal with selector', function() {
+      var myView = SideChain.View.extend({
+        ui: {div1: {element: 'option', 'value!=': 'Chicago'}}
+      });
+      var view = new myView();
+
+      expect(view.$ui.div1().selector).toEqual('option[value!="Chicago"]');
+    });
+
+    it('for an attribute starts with selector', function() {
+      var myView = SideChain.View.extend({
+        ui: {div1: {element: 'option', 'value^=': 'Chicago'}}
+      });
+      var view = new myView();
+
+      expect(view.$ui.div1().selector).toEqual('option[value^="Chicago"]');
     });
 
     it('for an attribute selector and element', function() {
